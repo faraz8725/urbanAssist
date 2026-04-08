@@ -2,11 +2,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import API from "../services/api";
 
-function Login() {
-  const { role } = useParams(); // customer/provider
+function Signup() {
+  const { role } = useParams();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: ""
   });
@@ -15,46 +16,49 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await API.post("/api/auth/login", {
+      const res = await API.post("/api/auth/register", {
         ...form,
-        role // 👈 IMPORTANT: role backend ko bhejna
+        role // 👈 IMPORTANT
       });
 
       console.log(res.data);
-      alert("Login Success");
+      alert("Signup Success");
+
+      navigate(`/login/${role}`); // 👈 auto redirect
     } catch (err) {
       console.log(err.response?.data || err);
-      alert("Login Failed");
+      alert("Signup Failed");
     }
   };
 
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
-      <h2>{role} Login</h2>
+      <h2>{role} Signup</h2>
 
       <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Email"
+        <input placeholder="Name"
+          onChange={(e)=>setForm({...form,name:e.target.value})}
+        /><br /><br />
+
+        <input placeholder="Email"
           onChange={(e)=>setForm({...form,email:e.target.value})}
         /><br /><br />
 
-        <input
-          type="password"
-          placeholder="Password"
+        <input type="password" placeholder="Password"
           onChange={(e)=>setForm({...form,password:e.target.value})}
         /><br /><br />
 
-        <button type="submit">Login</button>
+        <button type="submit">Signup</button>
       </form>
 
       <p>
-        Don't have an account?{" "}
-        <span onClick={() => navigate(`/signup/${role}`)} style={{color:"blue",cursor:"pointer"}}>
-          Signup first
+        Already have an account?{" "}
+        <span onClick={() => navigate(`/login/${role}`)} style={{color:"blue",cursor:"pointer"}}>
+          Login
         </span>
       </p>
     </div>
   );
 }
 
-export default Login;
+export default Signup;

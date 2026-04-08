@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SelectRole from "./pages/SelectRole";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 
 function App() {
@@ -13,15 +14,15 @@ function App() {
     <BrowserRouter>
       <Navbar />
       
-<Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/services" element={<Services />} />
-  <Route path="/contact" element={<Contact />} />
+    <Routes>
+         <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
 
-  {/* NEW ROUTES */}
-  <Route path="/select-role" element={<SelectRole />} />
-  <Route path="/login/:role" element={<Login />} />
-</Routes>
+        <Route path="/login/:role" element={<Login />} />
+        <Route path="/signup/:role" element={<Signup />} />
+        <Route path="/select-role/:type" element={<SelectRole />} />
+  </Routes>
 
       <Footer />
     </BrowserRouter>
