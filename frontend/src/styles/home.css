@@ -1,0 +1,17 @@
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: #f1f5f9;
+}
+
+.title {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.services {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+}
