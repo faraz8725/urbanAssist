@@ -1,17 +1,1 @@
-.card {
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  width: 150px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.card button {
-  margin-top: 10px;
-  padding: 8px;
-  border: none;
-  background: #0f172a;
-  color: white;
-  cursor: pointer;
-}
+/* unused - styles moved inline */
