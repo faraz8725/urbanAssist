@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import API from "../services/api";
 
-const socket = io("http://localhost:5000", { autoConnect: false });
+const socket = io("https://urbanassist-yq5t.onrender.com/", { autoConnect: false });
 
 function Navbar() {
   const navigate = useNavigate();
