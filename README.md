@@ -39,7 +39,7 @@ Key Features:
 - Secure authentication & user management
 
 Tech Stack:
-Frontend: React.js, Tailwind CSS
+Frontend: React.js
 Backend: Node.js, Express.js
 Database: MongoDB
 Authentication: JWT
@@ -48,7 +48,7 @@ Deployment: Vercel / Render
 Impact:
 UrbanAssist helps users find trusted services quickly, improves service reliability, and creates earning opportunities for local providers.
 
-🔗 Additional Links (Optional)
+🔗 Additional Links
 
-Presentation: [Add Link Here]
-Demo: [Add Link Here]
+Presentation: [https://drive.google.com/file/d/1LAQ4W7jGwZFD8GnpNs-1G72KolhEaRs9/view?usp=sharing]
+Demo: [https://urban-assist-swart.vercel.app/]
