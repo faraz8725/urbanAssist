@@ -10,6 +10,7 @@ app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/services", require("./routes/service.routes"));
 app.use("/api/bookings", require("./routes/booking.routes"));
 app.use("/api/reviews", require("./routes/review.routes"));
+app.use("/api/chats", require("./routes/chat.routes"));
 
 app.get("/", (req, res) => res.send("UrbanAssist API running 🚀"));
 

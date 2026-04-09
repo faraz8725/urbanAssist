@@ -72,3 +72,29 @@ exports.getProviderById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.updateService = async (req, res) => {
+  try {
+    const service = await Service.findById(req.params.id);
+    if (!service) return res.status(404).json({ error: "Service not found" });
+    if (service.provider.toString() !== req.user.id)
+      return res.status(403).json({ error: "Not authorized" });
+    const updated = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.deleteService = async (req, res) => {
+  try {
+    const service = await Service.findById(req.params.id);
+    if (!service) return res.status(404).json({ error: "Service not found" });
+    if (service.provider.toString() !== req.user.id)
+      return res.status(403).json({ error: "Not authorized" });
+    await service.deleteOne();
+    res.json({ message: "Deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

@@ -8,6 +8,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AddService from "./pages/AddService";
+import Chat from "./pages/Chat";
+import Inbox from "./pages/Inbox";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/add-service" element={<AddService />} />
+        <Route path="/chat/:providerId" element={<Chat />} />
+        <Route path="/inbox" element={<Inbox />} />
       </Routes>
       <Footer />
     </BrowserRouter>

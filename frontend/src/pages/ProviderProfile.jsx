@@ -26,6 +26,21 @@ function ProviderProfile() {
     }).catch(() => setLoading(false));
   }, [id]);
 
+  const handleDeleteReview = async (reviewId) => {
+    if (!window.confirm("Delete this review?")) return;
+    try {
+      await API.delete(`/api/reviews/${reviewId}`);
+      setReviews(reviews.filter(r => r._id !== reviewId));
+    } catch (err) {
+      alert(err.response?.data?.error || "Failed to delete");
+    }
+  };
+
+  const handleChat = async () => {
+    if (!user) return navigate("/login");
+    navigate(`/chat/${id}`);
+  };
+
   const handleBook = async (e) => {
     e.preventDefault();
     if (!user) return navigate("/login");
@@ -77,6 +92,9 @@ function ProviderProfile() {
           )}
         </div>
         {provider.price && <div style={styles.priceTag}>₹{provider.price}/hr</div>}
+        {user && user._id !== id && (
+          <button style={styles.chatBtn} onClick={handleChat}>💬 Chat</button>
+        )}
       </div>
 
       <div style={styles.twoCol}>
@@ -192,7 +210,12 @@ function ProviderProfile() {
               <div key={r._id} style={styles.reviewCard}>
                 <div style={styles.reviewHeader}>
                   <span style={styles.reviewerName}>{r.reviewer?.name}</span>
-                  <span style={styles.reviewStars}>{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span style={styles.reviewStars}>{"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}</span>
+                    {(user?._id === r.reviewer?._id || user?._id === id) && (
+                      <button onClick={() => handleDeleteReview(r._id)} style={styles.delBtn}>🗑</button>
+                    )}
+                  </div>
                 </div>
                 <p style={styles.reviewComment}>{r.comment}</p>
                 <span style={styles.reviewDate}>{new Date(r.createdAt).toLocaleDateString()}</span>
@@ -240,7 +263,9 @@ const styles = {
   reviewerName: { fontWeight: "600", fontSize: "14px", color: "#0f172a" },
   reviewStars: { color: "#f59e0b", fontSize: "14px" },
   reviewComment: { fontSize: "14px", color: "#475569", lineHeight: "1.5", marginBottom: "6px" },
-  reviewDate: { fontSize: "12px", color: "#94a3b8" }
+  reviewDate: { fontSize: "12px", color: "#94a3b8" },
+  chatBtn: { padding: "10px 20px", background: "#10b981", color: "#fff", border: "none", borderRadius: "8px", fontSize: "14px", fontWeight: "600", cursor: "pointer", alignSelf: "center" },
+  delBtn: { background: "none", border: "none", cursor: "pointer", fontSize: "14px", padding: "2px 4px", color: "#ef4444" }
 };
 
 export default ProviderProfile;

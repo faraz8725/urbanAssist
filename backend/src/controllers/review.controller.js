@@ -34,3 +34,21 @@ exports.getProviderReviews = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.deleteReview = async (req, res) => {
+  try {
+    const review = await Review.findById(req.params.id);
+    if (!review) return res.status(404).json({ error: "Review not found" });
+    const uid = req.user.id;
+    if (review.reviewer.toString() !== uid && review.provider.toString() !== uid)
+      return res.status(403).json({ error: "Not authorized" });
+    await review.deleteOne();
+    // Recalculate provider rating
+    const reviews = await Review.find({ provider: review.provider });
+    const avg = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
+    await User.findByIdAndUpdate(review.provider, { rating: avg.toFixed(1), totalReviews: reviews.length });
+    res.json({ message: "Deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
